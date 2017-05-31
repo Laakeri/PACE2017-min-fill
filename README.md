@@ -14,17 +14,17 @@ The solver reads the input from the standard input and outputs the solution to t
 
 Some flags that can be used:
 
-`-info` Prints the optimal fill size, the resulting treewidth (not necessary optimal treewidth) and the time used to the standard error after outputting the solution.
+`-info` Prints the optimal fill size, the resulting treewidth (not necessarily the optimal treewidth) and the time used to the standard error stream after outputting the solution.
 
 `-k=X` Sets upper bound X for the search. If the size of the smallest solution is > X, the solver will output that there is no solution. Otherwise it will output the optimal solution.
 
-`-pp` The solver will preprocess the graph. The preprocessor will output a graph with the same size minimum fill-in as the graph given as input. Other properties of the graph are not preserved.
+`-pp` The solver will preprocess the graph. The solver will output a graph with the same size optimal minimum fill-in as the graph given as input. Other properties of the graph are not preserved.
 
-`-pmcprogress` The solver will print some info about the progress of the PMC algorithm to the standard error.
+`-pmcprogress` The solver will print some info about the progress of the PMC algorithm to the standard error stream.
 
 ## Algorithms
 
-The solver first decomposes the graph by its clique separators [9] and solves the problem in each of them separately. After this some other preprocessing rules [3] are applied to the graph. The maximum cardinality search- algorithm [1, 10] is used for obtaining upper bounds for the solution and for the clique separator decomposition. Kernelization with O(k^2) kernel size [8] is applied after this. When the graph cannot be reduced anymore by these methods, the solver starts the actual search. We have implemented three different algorithms for this.
+The solver first decomposes the graph by its clique separators [9] and solves the problem in each of them separately. After this some other preprocessing rules [3] are applied to the graph. The maximum cardinality search -algorithm [1, 10] is used for obtaining upper bounds for the solution and for the clique separator decomposition. Kernelization with O(k^2) kernel size [8] is applied after this. When the graph cannot be reduced anymore by these methods, the solver starts the actual search. We have implemented three different algorithms for this.
 
 #### The potential maximal cliques algorithm.
 
@@ -32,7 +32,7 @@ The algorithm using potential maximal cliques is the most efficient of the imple
 
 #### Branching from the vertex cover instance
 
-The minimum fill in problem in dense graphs generates a vertex cover problem that has to be satisfied: each chordless 4-cycle has to be filled with either of the possible fill edges. We compute lower bounds by solving the vertex cover problem exactly and we branch from high degree vertices of the vertex cover instance. This approach is used if the lower bound given by the vertex cover instance matches the upper bound or if it there are too many minimal separators for the PMC algorithm.
+The minimum fill-in problem in dense graphs generates a vertex cover problem that has to be satisfied: each chordless 4-cycle has to be filled with either of the possible fill edges. We compute lower bounds by solving the vertex cover problem exactly and we branch from high degree vertices of the vertex cover instance. This approach is used if the lower bound given by the vertex cover instance matches the upper bound or if it there are too many minimal separators for the PMC algorithm.
 
 #### Branching from chordless cycle
 
