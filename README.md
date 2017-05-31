@@ -38,6 +38,7 @@ The minimum fill in problem in dense graphs generates a vertex cover problem tha
 
 It is also possible to branch directly from chordless cycles. This approach is too slow to solve anything meaningful.
 
+## References
 
 [1] Berry, Anne, Jean RS Blair, and Pinar Heggernes. "Maximum cardinality search for computing minimal triangulations." International Workshop on Graph-Theoretic Concepts in Computer Science. Springer Berlin Heidelberg, 2002.
 
