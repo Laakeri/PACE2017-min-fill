@@ -8,7 +8,7 @@ Build the code with the makefile provided.
 
 Run with `./main`
 
-The solver reads the input from the standard input and outputs the solution to the standard output. The output format is always the PACE 2017 format: each line contains description of one fill edge. Description of an edge is its endpoints separated by a space. The solver supports multiple input formats. All input formats present in the instances directory are supported.
+The solver reads the input from the standard input and outputs the solution to the standard output. The output format is the PACE 2017 format: each line contains description of one fill edge. Description of an edge is its endpoints separated by a space. The solver supports multiple input formats. All input formats present in the `instances` directory are supported.
 
 ### Flags
 
@@ -24,19 +24,19 @@ Some flags that can be used:
 
 ## Algorithms
 
-The solver first decomposes the graph by its clique separators [9] and solves the problem in each of them separately. After this some other preprocessing rules [3] are applied to the graph. The maximum cardinality search -algorithm [1, 10] is used for obtaining upper bounds for the solution and for the clique separator decomposition. Kernelization with O(k^2) kernel size [8] is applied after this. When the graph cannot be reduced anymore by these methods, the solver starts the actual search. We have implemented three different algorithms for this.
+The solver first decomposes the graph by its clique separators [9] and solves the problem in each of them separately. After this some other preprocessing rules [3] are applied to the graph. The maximum cardinality search algorithm [1, 10] is used for obtaining upper bounds for the solution and for the clique separator decomposition. Kernelization with O(k^2) kernel size [8] is applied after this. When the graph cannot be reduced anymore by these methods, the solver starts the actual search. We have implemented three different algorithms for this.
 
 #### The potential maximal cliques algorithm.
 
-The algorithm using potential maximal cliques is the most efficient of the implemented algorithms in most of the cases. The algorithm lists all minimal separators of the graph in O(|minseps| n^3) time [2], then lists all potential maximal cliques of the graph in O(|minseps|^2 n^2 m) time [4] and then computes the minimum fill-in using the O(|PMCs| n^3) dynamic programming algorithm over potential maximal cliques [5, 6]. The bottleneck in this algorithm is listing all potential maximal cliques. An algorithm for enumerating potential maximal cliques in O(|PMCs| poly(n)) time could improve the running time of the implementation significantly, since the number of potential maximal cliques seems to be much less than O(|minseps|^2). Upper bounds for the number of minimal separators and for the number of potential maximal cliques are O(n^1.62) and O(n^1.76) [7].
+The algorithm using potential maximal cliques is the most efficient of the implemented algorithms in most of the cases. The algorithm lists all minimal separators (minseps) of the graph in O(|minseps| n^3) time [2], then lists all potential maximal cliques (PMCs) of the graph in O(|minseps|^2 n^2 m) time [4] and then computes the minimum fill-in using the O(|PMCs| n^3) dynamic programming algorithm over potential maximal cliques [5, 6]. The bottleneck in this algorithm is listing all potential maximal cliques. An algorithm for enumerating potential maximal cliques in O(|PMCs| poly(n)) time could improve the running time of the implementation significantly, since the number of potential maximal cliques seems to be much less than O(|minseps|^2). Upper bounds for the number of minimal separators and for the number of potential maximal cliques are O(n^1.62) and O(n^1.76) [7].
 
 #### Branching from the vertex cover instance
 
-The minimum fill-in problem in dense graphs generates a vertex cover problem that has to be satisfied: each chordless 4-cycle has to be filled with either of the possible fill edges. We compute lower bounds by solving the vertex cover problem exactly and we branch from high degree vertices of the vertex cover instance. This approach is used if the lower bound given by the vertex cover instance matches the upper bound or if it there are too many minimal separators for the PMC algorithm.
+The minimum fill-in problem in dense graphs generates a vertex cover problem that has to be satisfied: each chordless 4-cycle has to be filled with one of the two possible fill edges. We compute lower bounds by solving the vertex cover problem exactly and we branch from high degree vertices of the vertex cover instance. This approach is used if the lower bound given by the vertex cover instance matches the upper bound or if it there are too many minimal separators for the PMC algorithm.
 
 #### Branching from chordless cycle
 
-It is also possible to branch directly from chordless cycles. This approach is too slow to solve anything meaningful.
+It is also possible to branch directly from chordless cycles. This approach appears to be too slow to solve anything meaningful.
 
 ## References
 
@@ -46,7 +46,7 @@ It is also possible to branch directly from chordless cycles. This approach is t
 
 [3] Bodlaender, Hans L., and Arie MCA Koster. "Safe separators for treewidth." Discrete Mathematics 306.3 (2006): 337-350.
 
-[4] Bouchitté, Vincent, and Ioan Todinca. "Listing all potential maximal cliques of a graph." Theoretical Computer Science 276.1 (2002): 17-32.
+[4] Bouchitté, Vincent, and Ioan Todinca. "Listing all potential maximal cliques of a graph." Theoretical Computer Science 276(1):17-32, 2002
 
 [5] Bouchitté, Vincent, and Ioan Todinca. "Treewidth and minimum fill-in: Grouping the minimal separators." SIAM Journal on Computing 31.1 (2001): 212-232.
 
