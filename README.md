@@ -24,11 +24,11 @@ Some flags that can be used:
 
 ## Algorithms
 
-The solver first decomposes the graph by its clique separators [8] and solves the problem in each of them separately. After this some other preprocessing rules [3] are applied to the graph. The maximum cardinality search- algorithm [1, 9] is used for obtaining upper bounds for the solution and for the clique separator decomposition. Kernelization with O(k^2) kernel size [7] is applied after this. When the graph cannot be reduced anymore by these methods, the solver starts the actual search. We have implemented three different algorithms for this.
+The solver first decomposes the graph by its clique separators [9] and solves the problem in each of them separately. After this some other preprocessing rules [3] are applied to the graph. The maximum cardinality search- algorithm [1, 10] is used for obtaining upper bounds for the solution and for the clique separator decomposition. Kernelization with O(k^2) kernel size [8] is applied after this. When the graph cannot be reduced anymore by these methods, the solver starts the actual search. We have implemented three different algorithms for this.
 
 #### The potential maximal cliques algorithm.
 
-The algorithm using potential maximal cliques is the most efficient of the implemented algorithms in most of the cases. The algorithm lists all minimal separators of the graph in O(|minseps| n^3) time [2], then lists all potential maximal cliques of the graph in O(|minseps|^2 n^2 m) time [4] and then computes the minimum fill-in using the O(|PMCs| n^3) dynamic programming algorithm over potential maximal cliques [5, 6]. The bottleneck in this algorithm is listing all potential maximal cliques. An algorithm for enumerating potential maximal cliques in O(|PMCs| poly(n)) time could improve the running time of the implementation significantly, since the number of potential maximal cliques seems to be much less than O(|minseps|^2).
+The algorithm using potential maximal cliques is the most efficient of the implemented algorithms in most of the cases. The algorithm lists all minimal separators of the graph in O(|minseps| n^3) time [2], then lists all potential maximal cliques of the graph in O(|minseps|^2 n^2 m) time [4] and then computes the minimum fill-in using the O(|PMCs| n^3) dynamic programming algorithm over potential maximal cliques [5, 6]. The bottleneck in this algorithm is listing all potential maximal cliques. An algorithm for enumerating potential maximal cliques in O(|PMCs| poly(n)) time could improve the running time of the implementation significantly, since the number of potential maximal cliques seems to be much less than O(|minseps|^2). Upper bounds for the number of minimal separators and for the number of potential maximal cliques are O(n^1.62) and O(n^1.76) [7].
 
 #### Branching from the vertex cover instance
 
@@ -51,10 +51,12 @@ It is also possible to branch directly from chordless cycles. This approach is t
 
 [6] Fomin, Fedor V., Dieter Kratsch, and Ioan Todinca. "Exact (exponential) algorithms for treewidth and minimum fill-in." International Colloquium on Automata, Languages, and Programming. Springer Berlin Heidelberg, 2004.
 
-[7] Natanzon, Assaf, Ron Shamir, and Roded Sharan. "A polynomial approximation algorithm for the minimum fill-in problem." SIAM Journal on Computing 30.4 (2000): 1067-1079.
+[7] Fomin, Fedor, and Yngve Villanger. "Treewidth computation and extremal combinatorics." Automata, Languages and Programming (2008): 210-221.
 
-[8] Tarjan, Robert E. "Decomposition by clique separators." Discrete mathematics 55.2 (1985): 221-232.
+[8] Natanzon, Assaf, Ron Shamir, and Roded Sharan. "A polynomial approximation algorithm for the minimum fill-in problem." SIAM Journal on Computing 30.4 (2000): 1067-1079.
 
-[9] Tarjan, Robert E., and Mihalis Yannakakis. "Simple linear-time algorithms to test chordality of graphs, test acyclicity of hypergraphs, and selectively reduce acyclic hypergraphs." SIAM Journal on computing 13.3 (1984): 566-579.
+[9] Tarjan, Robert E. "Decomposition by clique separators." Discrete mathematics 55.2 (1985): 221-232.
+
+[10] Tarjan, Robert E., and Mihalis Yannakakis. "Simple linear-time algorithms to test chordality of graphs, test acyclicity of hypergraphs, and selectively reduce acyclic hypergraphs." SIAM Journal on computing 13.3 (1984): 566-579.
 
 
