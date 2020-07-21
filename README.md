@@ -1,4 +1,5 @@
 # Minimum fill-in solver
+Note: An improved implementation is available in [https://github.com/Laakeri/triangulator-msc](https://github.com/Laakeri/triangulator-msc).
 
 Implementation of exact minimum fill-in solver for PACE challenge 2017 https://pacechallenge.wordpress.com/
 
